@@ -214,6 +214,8 @@ def diag_mark(board, player=other):
             mark(player,pos,pos,board)
             return win
 
+        step = 0
+        win = True
         for x in [0,m-1]: 
             if board[x,m-1-x] == player:
                 step = step + 1
@@ -235,6 +237,8 @@ def diag_mark(board, player=other):
         else:
             for x in range(0,m-k+1):
                 for y in range(0,n-k+1):
+                    step = 0
+                    win = True
                     for z in (0,k):
                         if board[x+z,y+z] == player:
                             step = step + 1
@@ -246,9 +250,12 @@ def diag_mark(board, player=other):
                         mark(player,x+pos,y+pos,board)
                         return win
 
-            
+
+                        
             for x in range(0,m-k+1):
                 for y in range(n-1,k-1):
+                    step = 0
+                    win = True
                     for z in (0,k):
                         if board[x+z,y+z] == player:
                             step = step + 1
@@ -334,6 +341,9 @@ def diag_check(board, player):
             mark(other,pos,pos,board)
             return win
 
+
+        step = 0
+        win = True
         for x in [0,m-1]: 
             if board[x,m-1-x] == player:
                 step = step + 1
@@ -358,6 +368,8 @@ def diag_check(board, player):
         else:
             for x in range(0,m-k+1):
                 for y in range(0,n-k+1):
+                    step = 0
+                    win = True
                     for z in (0,k):
                         if board[x+z,y+z] == player:
                             step = step + 1
@@ -369,8 +381,11 @@ def diag_check(board, player):
                         mark(other,x+pos,y+pos,board)
                         return win
 
+          
             for x in range(0,m-k+1):
                 for y in range(n-1,k-1):
+                    step = 0
+                    win = True
                     for z in (0,k):
                         if board[x+z,y+z] == player:
                             step = step + 1
