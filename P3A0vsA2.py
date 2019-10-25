@@ -14,16 +14,13 @@ import random as rd
 from time import sleep 
 
 #User inputs
-user = int(input('Welcome.\nThe mark of Player 1 is 1 and the mark of Player 2 is 2.\nChoose your Player.\nPress 1 for Player 1 or press 2 for Player 2\n'))
+games = int(input('Enter the number of matches you want\n'))
 m = int(input('Enter the number of rows i.e. m\n'))
 n = int(input('Enter the number of columns i.e. n\n'))
 k = int(input('Enter the length of the sequence horizontally, vertically, or diagonally that constitutes a win\n'))
 winner = 0
-other = 0
-if user == 1:
-    other = 2
-elif user == 2:
-    other = 1
+user = 1
+other = 2
 
 
 # Creates an empty board 
@@ -52,10 +49,10 @@ def possibilities(board):
 
   
 # Select a random place for the player 
-def random_place(board): 
+def random_place(board,player): 
     selection = possibilities(board) 
     current_loc = rd.choice(selection) 
-    board[current_loc] = other
+    board[current_loc] = player
     return(board) 
 
 
@@ -408,6 +405,8 @@ def diag_check(board, player):
 
 
 
+
+
   
 # Evaluates whether there is a winner or a tie  
 def evaluate(board):
@@ -444,19 +443,14 @@ def play_game():
 
     while winner == 0: 
         for player in [1,2]:
-            if player == other and counter == 1:
-                board = random_place(board)
-            elif player == user:
-                c = int(input('Enter the row which you want to mark \n'))
-                d = int(input('Enter the column which you want to mark \n'))
-                check_cd(board,c,d)
-                    
-                mark(user,c,d,board)
+            if player == user:
+                board = random_place(board,user)
 
             elif player == other:
                 check = row_mark(board,other)
                 if check == True:
-                    print("Board after " + str(counter) + " move") 
+                    print("Board after " + str(counter) + " move")
+                    print("rm")
                     print(board) 
                     sleep(0.1) 
                     counter += 1
@@ -467,7 +461,8 @@ def play_game():
                 
                 check = col_mark(board,other)
                 if check == True:
-                    print("Board after " + str(counter) + " move") 
+                    print("Board after " + str(counter) + " move")
+                    print("cm")
                     print(board) 
                     sleep(0.1) 
                     counter += 1
@@ -478,7 +473,8 @@ def play_game():
                 
                 check = diag_mark(board,other)
                 if check == True:
-                    print("Board after " + str(counter) + " move") 
+                    print("Board after " + str(counter) + " move")
+                    print("dm")
                     print(board) 
                     sleep(0.1) 
                     counter += 1
@@ -490,7 +486,8 @@ def play_game():
                     
                 check = row_check(board,user)
                 if check == True:
-                    print("Board after " + str(counter) + " move") 
+                    print("Board after " + str(counter) + " move")
+                    print("rc")
                     print(board) 
                     sleep(0.1) 
                     counter += 1
@@ -502,7 +499,8 @@ def play_game():
                     
                 check = col_check(board,user)
                 if check == True:
-                    print("Board after " + str(counter) + " move") 
+                    print("Board after " + str(counter) + " move")
+                    print("cc")
                     print(board) 
                     sleep(0.1) 
                     counter += 1
@@ -514,7 +512,8 @@ def play_game():
                     
                 check = diag_check(board,user)
                 if check == True:
-                    print("Board after " + str(counter) + " move") 
+                    print("Board after " + str(counter) + " move")
+                    print("dc")
                     print(board) 
                     sleep(0.1) 
                     counter += 1
@@ -524,7 +523,7 @@ def play_game():
                     continue
 
                     
-                board = random_place(board)
+                board = random_place(board,other)
                 
                 
                 
@@ -543,8 +542,12 @@ def play_game():
 
   
 # Driver Code
-play_again = 1
-while(play_again > 0):
+pl1 = 0
+pl2 = 0
+p1 = 0
+p2 = 0
+draw = 0
+for i in range(0,games):
     how_winner = play_game()
 
     if how_winner == 1 or how_winner == 2:
@@ -554,9 +557,16 @@ while(play_again > 0):
         print("Game is tie")
 
 
-    print("\n\n")
-    again = int(input('Do you want to play again?\nPress 1 for Yes and 0 for No.\n'))
-    if again == 1:
-        play_again = 1
-    elif again == 0:
-        play_again = 0
+    if how_winner == 1:
+        pl1 += 1
+
+    elif how_winner == 2:
+        pl2 += 1
+
+p1 = pl1/games
+p2 = pl2/games
+draw = 1 - (p1 + p2)
+print('\n\n\n')
+print('Probability of Player 1 winning the game = ' + str(p1) + '\n')
+print('Probability of Player 2 winning the game = ' + str(p2) + '\n')
+print('Probability of drawing the game = ' + str(draw) + '\n')
