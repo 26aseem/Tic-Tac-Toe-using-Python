@@ -119,7 +119,7 @@ def diag_win(board, player):
         return win
             
 
-    elif m != n:
+    elif m != n or k!=m or k!=n:
         if k>min(m,n):
             win = False
             return(win)
@@ -127,7 +127,7 @@ def diag_win(board, player):
             for x in range(0,m-k+1):
                 for y in range(0,n-k+1):
                     win_count = 0
-                    for z in (0,k):
+                    for z in range(0,k):
                         if board[x+z,y+z] == player:
                             win_count = win_count + 1
                     if(win_count == k):
@@ -136,6 +136,7 @@ def diag_win(board, player):
             return(win)
                         
         
+
 
 
 
@@ -212,6 +213,7 @@ def diag_mark(board, player):
 
         step = 0
         win = True
+        pos = -1
         for x in [0,m-1]: 
             if board[x,m-1-x] == player:
                 step = step + 1
@@ -226,7 +228,7 @@ def diag_mark(board, player):
 
         
 
-    elif m != n:
+    elif m != n or k!=m or k!=n:
         if k>min(m,n):
             win = False
             return(win)
@@ -235,7 +237,8 @@ def diag_mark(board, player):
                 for y in range(0,n-k+1):
                     step = 0
                     win = True
-                    for z in (0,k):
+                    pos = -1
+                    for z in range(0,k):
                         if board[x+z,y+z] == player:
                             step = step + 1
                         elif board[x+z,y+z] == 0:
@@ -252,7 +255,8 @@ def diag_mark(board, player):
                 for y in range(n-1,k-1):
                     step = 0
                     win = True
-                    for z in (0,k):
+                    pos = -1
+                    for z in range(0,k):
                         if board[x+z,y+z] == player:
                             step = step + 1
                         elif board[x+z,y+z] == 0:
@@ -261,136 +265,6 @@ def diag_mark(board, player):
                         win = False
                     if win == True and board[x+pos,y+pos] == 0 and pos>=0:
                         mark(player,x+pos,y+pos,board)
-                        return win 
-            
-            return win
-
-
-
-
-
-# Checks whether the user has k-1 of their marks in a horizontal row 
-def row_check(board, player): 
-    for x in range(0,m): 
-        for y in range(0,n-k+1):
-            win = True
-            step = 0
-            pos = -1  #To store position where mark can be made
-            for z in range(y,y+k):
-                if board[x,z] == player: 
-                    step = step + 1
-                elif board[x,z] == 0:
-                    pos = z
-            if ((step + 1) != k) or (step + 1 == k and pos<0):
-                win = False
-            if win == True and board[x,pos] == 0 and pos>=0:
-                mark(other,x,pos,board)
-                return win
-    return win
-
-    
-          
-  
-# Checks whether the player has k-1 of their marks in a vertical row 
-def col_check(board, player):
-    for x in range(0,n): 
-        for y in range(0,m-k+1):
-            win = True
-            step = 0
-            pos = -1  #To store position where mark can be made
-            for z in range(y,y+k):
-                if board[z,x] == player: 
-                    step = step + 1
-                elif board[z,x] == 0:
-                    pos = z
-            if (step + 1 != k) or (step + 1 == k and pos<0):
-                win = False
-            if win == True and board[pos,x] == 0 and pos>=0:
-                mark(other,pos,x,board)
-                return win
-
-    return win
-                
-
-                           
-
-    
-
-  
-# Checks whether the player has k-1 of their marks in a diagonal 
-
-def diag_check(board, player): 
-    win = True
-    step = 0
-    pos = -1  #To store position where mark can be made
-    
-    if m == n and m==k:
-        for x in range(0,m): 
-            if board[x,x] == int(user):
-                step = step + 1
-                
-            elif board[x,x] == 0:
-                pos = x
-        if ((step + 1) != k) or (step + 1 == k and pos<0):
-            win = False
-        if win == True and board[pos,pos] == 0 and pos>=0:
-            mark(other,pos,pos,board)
-            return win
-
-
-        step = 0
-        win = True
-        for x in [0,m-1]: 
-            if board[x,m-1-x] == player:
-                step = step + 1
-            elif board[x,m-1-x] == 0:
-                pos = x
-        if ((step + 1) != k) or (step + 1 == k and pos<0):
-            win = False
-        if win == True and board[pos,m-1-pos] == 0 and pos>=0:
-            mark(other,pos,m-1-pos,board)
-            return win
-        return win
-
-
-
-
-    
-
-    elif m != n:
-        if k>min(m,n):
-            win = False
-            return(win)
-        else:
-            for x in range(0,m-k+1):
-                for y in range(0,n-k+1):
-                    step = 0
-                    win = True
-                    for z in (0,k):
-                        if board[x+z,y+z] == player:
-                            step = step + 1
-                        elif board[x+z,y+z] == 0:
-                            pos = z
-                    if ((step + 1) != k) or (step + 1 == k and pos<0):
-                        win = False
-                    if win == True and board[x+pos,y+pos] == 0 and pos>=0:
-                        mark(other,x+pos,y+pos,board)
-                        return win
-
-          
-            for x in range(0,m-k+1):
-                for y in range(n-1,k-1):
-                    step = 0
-                    win = True
-                    for z in (0,k):
-                        if board[x+z,y+z] == player:
-                            step = step + 1
-                        elif board[x+z,y+z] == 0:
-                            pos = z
-                    if ((step + 1) != k) or (step + 1 == k and pos<0):
-                        win = False
-                    if win == True and board[x+pos,y+pos] == 0 and pos>=0:
-                        mark(other,x+pos,y+pos,board)
                         return win 
             
             return win
@@ -438,46 +312,9 @@ def play_game():
     while winner == 0: 
         for player in [1,2]:
             if player == user:
-                check = row_mark(board,user)
-                if check == True:
-                    print("Board after " + str(counter) + " move") 
-                    print(board) 
-                    sleep(0.1) 
-                    counter += 1
-                    winner = int(evaluate(board))
-                    if winner != 0:
-                        return(winner)
-                    continue
-                
-                check = col_mark(board,user)
-                if check == True:
-                    print("Board after " + str(counter) + " move") 
-                    print(board) 
-                    sleep(0.1) 
-                    counter += 1
-                    winner = int(evaluate(board))
-                    if winner != 0:
-                        return(winner)
-                    continue
-                
-                check = diag_mark(board,user)
-                if check == True:
-                    print("Board after " + str(counter) + " move") 
-                    print(board) 
-                    sleep(0.1) 
-                    counter += 1
-                    winner = int(evaluate(board))
-                    if winner != 0:
-                        return(winner)
-                    continue
-
-                    
                 board = random_place(board,user)
                 
 
-
-
-            
             elif player == other:
                 check = row_mark(board,other)
                 if check == True:
@@ -512,43 +349,7 @@ def play_game():
                         return(winner)
                     continue
 
-                    
-                check = row_check(board,user)
-                if check == True:
-                    print("Board after " + str(counter) + " move") 
-                    print(board) 
-                    sleep(0.1) 
-                    counter += 1
-                    winner = int(evaluate(board))
-                    if winner != 0:
-                        return(winner)
-                    continue
-
-                    
-                check = col_check(board,user)
-                if check == True:
-                    print("Board after " + str(counter) + " move") 
-                    print(board) 
-                    sleep(0.1) 
-                    counter += 1
-                    winner = int(evaluate(board))
-                    if winner != 0:
-                        return(winner)
-                    continue
-
-                    
-                check = diag_check(board,user)
-                if check == True:
-                    print("Board after " + str(counter) + " move") 
-                    print(board) 
-                    sleep(0.1) 
-                    counter += 1
-                    winner = int(evaluate(board))
-                    if winner != 0:
-                        return(winner)
-                    continue
-
-                    
+                                        
                 board = random_place(board,other)
                 
                 
@@ -592,7 +393,16 @@ for i in range(0,games):
 p1 = pl1/games
 p2 = pl2/games
 draw = 1 - (p1 + p2)
+small = p1
+if(p1>p2):
+    small = p2
+if(small>draw):
+    small = draw
+
 print('\n\n\n')
 print('Probability of Player 1 winning the game = ' + str(p1) + '\n')
 print('Probability of Player 2 winning the game = ' + str(p2) + '\n')
 print('Probability of drawing the game = ' + str(draw) + '\n')
+print('The smallest probabilities from each game : ')
+print(small)
+

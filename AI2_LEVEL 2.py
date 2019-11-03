@@ -122,7 +122,7 @@ def diag_win(board, player):
         return win
             
 
-    elif m != n:
+    elif m != n or k!=m or k!=n:
         if k>min(m,n):
             win = False
             return(win)
@@ -130,7 +130,7 @@ def diag_win(board, player):
             for x in range(0,m-k+1):
                 for y in range(0,n-k+1):
                     win_count = 0
-                    for z in (0,k):
+                    for z in range(0,k):
                         if board[x+z,y+z] == player:
                             win_count = win_count + 1
                     if(win_count == k):
@@ -216,6 +216,7 @@ def diag_mark(board, player):
 
         step = 0
         win = True
+        pos = -1
         for x in [0,m-1]: 
             if board[x,m-1-x] == player:
                 step = step + 1
@@ -230,7 +231,7 @@ def diag_mark(board, player):
 
         
 
-    elif m != n:
+    elif m != n or k!=m or k!=n:
         if k>min(m,n):
             win = False
             return(win)
@@ -239,7 +240,8 @@ def diag_mark(board, player):
                 for y in range(0,n-k+1):
                     step = 0
                     win = True
-                    for z in (0,k):
+                    pos = -1
+                    for z in range(0,k):
                         if board[x+z,y+z] == player:
                             step = step + 1
                         elif board[x+z,y+z] == 0:
@@ -256,7 +258,8 @@ def diag_mark(board, player):
                 for y in range(n-1,k-1):
                     step = 0
                     win = True
-                    for z in (0,k):
+                    pos = -1
+                    for z in range(0,k):
                         if board[x+z,y+z] == player:
                             step = step + 1
                         elif board[x+z,y+z] == 0:
@@ -344,6 +347,7 @@ def diag_check(board, player):
 
         step = 0
         win = True
+        pos = -1
         for x in [0,m-1]: 
             if board[x,m-1-x] == player:
                 step = step + 1
@@ -361,7 +365,7 @@ def diag_check(board, player):
 
     
 
-    elif m != n:
+    elif m != n or k!=m or k!=n:
         if k>min(m,n):
             win = False
             return(win)
@@ -370,7 +374,8 @@ def diag_check(board, player):
                 for y in range(0,n-k+1):
                     step = 0
                     win = True
-                    for z in (0,k):
+                    pos = -1
+                    for z in range(0,k):
                         if board[x+z,y+z] == player:
                             step = step + 1
                         elif board[x+z,y+z] == 0:
@@ -386,7 +391,8 @@ def diag_check(board, player):
                 for y in range(n-1,k-1):
                     step = 0
                     win = True
-                    for z in (0,k):
+                    pos = -1
+                    for z in range(0,k):
                         if board[x+z,y+z] == player:
                             step = step + 1
                         elif board[x+z,y+z] == 0:
