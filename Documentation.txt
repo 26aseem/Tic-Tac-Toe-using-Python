@@ -1,0 +1,7 @@
+This project is about developing a smart Tic Tac Toe game using Python.
+This is a different from traditional Tic Tac Toe. 
+In this game, you can define the number of rows and columns. You can also define the number of adjacent marks needed to win.
+Three difficulty levels are developed.
+Level 0 or AI0 marks its position randomly.
+Level 1 or AI1 checks for winning position. If there is no winning position, then it marks its position randomly.  
+Level 2 or AI2 checks for winning position. If there is no winning position, then it checks if there is an enemy winning position. If there is an enemy winning position, it blocks the position by placing its own mark. Else it marks its position randomly.
